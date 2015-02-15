@@ -1,0 +1,28 @@
+.form-group {
+    padding:10px;
+    display:block;
+             }
+             
+.form-control {
+    margin-left:20px;
+    width:200px;
+    border:2px solid #d3d3d3; 
+    border-radius: 3px;
+    font:16px black Tahoma;
+}
+
+.form-control:hover {
+    border-color: #0066A4;
+    color:red;
+   
+    
+}
+
+.control-label {
+     float:left;
+     text-align: right;
+     margin-left:10px;
+     width:50px;
+     font-size:15px;
+     font-weight:bold;
+}
