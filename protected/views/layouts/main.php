@@ -43,7 +43,6 @@
 
     <?php
     
-    $cs->registerScriptFile($baseUrl.'/js/jquery.js');
     $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.scrollUp.min.js');
     $cs->registerScriptFile($baseUrl.'/js/price-range.js');

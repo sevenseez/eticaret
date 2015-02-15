@@ -10,7 +10,12 @@
                         
                         <?php
                         echo CHtml::link(' <span class="badge pull-right"></span>
-                            SPOR GİYİM',array('urunler/urunler/1'));
+                            SPOR GİYİM',array('urunler/urunler'),
+                               array(
+                                   'submit'=>array('urunler/urunler'),
+                                   'params'=>array('id'=>1),
+                                   
+                               ));
                         ?>
                     </h4>
                 </div>
@@ -47,8 +52,12 @@
                     <h4 class="panel-title">
                          <?php
                         echo CHtml::link(' <span class="badge pull-right"></span>
-                            BAYAN GİYİM',array('urunler/urunler/2')
-                                );
+                            BAYAN GİYİM',array('urunler/urunler'),
+                               array(
+                                   'submit'=>array('urunler/urunler'),
+                                   'params'=>array('id'=>2),
+                                   
+                               ));
                         ?>
                     </h4>
                 </div>
@@ -85,14 +94,14 @@
                 </div>
             </div>
         </div><!--/category-products-->
-
+        <?php if(Yii::app()->controller->id=='urunler'): ?>
         <div class="brands_products"><!--brands_products-->
             <h2>Markalar</h2>
             <div class="brands-name">
                 <?php 
                 
-                if(Yii::app()->controller->id=='urunler'){
-                $brandProvider=Brand::model()->BrandProvider('1');
+                
+                $brandProvider=Brand::model()->BrandProvider($catID);
                 $brandView ='application.views.system.brandfeed';
                 
                 $this->widget('zii.widgets.CListView',array(
@@ -104,20 +113,10 @@
                     'emptyText' => '',
                     
                 ));
-                }
                 ?>
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
-                    <li><a href=""> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                    <li><a href=""> <span class="pull-right">(27)</span>Albiro</a></li>
-                    <li><a href=""> <span class="pull-right">(32)</span>Ronhill</a></li>
-                    <li><a href=""> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                    <li><a href=""> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                    <li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
-                </ul>
             </div>
             </div><!--/brands_products-->
-
+            <?php endif;?>
             <div class="price-range"><!--price-range-->
                 <h2>Fİyat Aralığı</h2>
                 <div class="well">

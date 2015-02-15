@@ -17,11 +17,11 @@ class WebUser extends CWebUser {
  
   function real_name($id){
       
-     if($id=='0' || $id==null) { return 'Müşteri';}
-      else {
-      $user = Yonetici::model()->findByPk($id);
-    
-      return $user->y_adsoyad; }
+     
+      $user = User::model()->findByPk($id);
+      if(count($user)>0)
+          return $user->name;
+      else return 'DELETED';
   }
   
   // This is a function that checks the field 'role'

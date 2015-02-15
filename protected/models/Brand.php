@@ -44,6 +44,18 @@ class Brand extends EMongoDocument {
         );
       }
       
+    public function indexes()
+    {
+        return array(
+            // index name is not important, you may write whatever you want, just must be unique
+            'index1_name'=>array(
+                'key'=>array(
+                    'category_id'=>EMongoCriteria::SORT_ASC
+                ),
+            ),
+        );
+    } 
+    
     public function primaryKey()
         {
             return '_id'; // Model field name, by default the _id field is used

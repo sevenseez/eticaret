@@ -36,6 +36,14 @@ return array(
 
 	// application components
 	'components'=>array(
+                 'clientScript'=>array(
+                    'packages'=>array(
+                        'jquery'=>array(
+                            'baseUrl'=>'/eticaret/js/',
+                            'js'=>array('jquery.js'),
+                        )
+                    )
+                ),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
@@ -61,10 +69,11 @@ return array(
                             'gii/<controller:\w+>/<id:\d+>' => 'gii/<controller>/view',
                             'gii/<controller:\w+>/<action:\w+>/<id:\d+>' => 'gii/<controller>/<action>',
                             
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-                                
+                           
+                            '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                            '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                            '<controller:\w+>/<action:\w+>/<pn:[^\/]*>/*' => '<controller>/<action>/view',
+                            
 			),
 		),
 		'db'=>array(

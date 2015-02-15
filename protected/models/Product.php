@@ -47,13 +47,18 @@ class Product extends EMongoDocument
     {
         return '_id'; // Model field name, by default the _id field is used
     }
-      public function indexes()
-    {   
-            return array(
-                // index name is not important, you may write whatever you want, just must be unique
-            
-            );
-        }
+     public function indexes()
+    {
+        return array(
+            // index name is not important, you may write whatever you want, just must be unique
+            'index1_name'=>array(
+                'key'=>array('category_id'=>EMongoCriteria::SORT_ASC ),
+            ),
+            'index2_name'=>array(
+               'key'=>array('marka_id'=>  EMongoCriteria::SORT_ASC)
+               )
+        );
+    }
         
     public function ProductProvider($category_id){ 
         $conditions = new EMongoCriteria;
