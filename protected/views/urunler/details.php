@@ -2,14 +2,14 @@
     <div class="container">
         <div class="row">
             <?php 
-            $baseUrl = Yii::app()->baseUrl;
+            
             include Yii::app()->basePath . '/views/layouts/leftNav.php'; ?>
 
             <div class="col-sm-9 padding-right">
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="<?php echo $baseUrl ?>/images/shop/<?php $img = $model->images; echo $img[0]['image_name']?>" alt="" />
+                            <img src="<?php echo BaseUrl ?>/images/shop/<?php $img = $model->images; echo $img[0]['image_name']?>" alt="" />
                             <h3>ZOOM</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -20,14 +20,14 @@
                                     <?php 
                                     for($i=1;$i<count($img)+1;$i++){
                                         if($i==count($img)) $k=$i%count($img); else $k=$i;
-                                        echo '<a href=""><img height="84px" width="90px" src="'.$baseUrl.'/images/shop/'.$img[$k]['image_name'].'" alt=""></a>';
+                                        echo '<a href=""><img height="84px" width="90px" src="'.BaseUrl.'/images/shop/'.$img[$k]['image_name'].'" alt=""></a>';
                                     }
                                     ?>
                                 </div>
                                 <div class="item">
-                                    <a href=""><img src="<?php echo $baseUrl ?>/images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="<?php echo $baseUrl ?>/images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="<?php echo $baseUrl ?>/images/product-details/similar3.jpg" alt=""></a>
+                                    <a href=""><img src="<?php echo BaseUrl ?>/images/product-details/similar1.jpg" alt=""></a>
+                                    <a href=""><img src="<?php echo BaseUrl ?>/images/product-details/similar2.jpg" alt=""></a>
+                                    <a href=""><img src="<?php echo BaseUrl ?>/images/product-details/similar3.jpg" alt=""></a>
                                 </div>
 
                             </div>
@@ -44,13 +44,13 @@
                     </div>
                     <div class="col-sm-7">
                         <div class="product-information"><!--/product-information-->
-                            <img src="<?php echo $baseUrl ?>/images/product-details/new.jpg" class="newarrival" alt="" />
+                            <img src="<?php echo BaseUrl ?>/images/product-details/new.jpg" class="newarrival" alt="" />
                             <h2><?php echo $model->product_name ?> </h2>
                             <p>Web ID: <?php echo $model->product_id;?></p>
-                            <img src="<?php echo $baseUrl ?>/images/product-details/rating.png" alt="" />
+                            <img src="<?php echo BaseUrl ?>/images/product-details/rating.png" alt="" />
                             <span>
                                 <span>US $<?php echo $model->price?></span>
-                                <label>Quantity:</label>
+                                <label>Stok:</label>
                                 <input type="text" value="<?php echo $model->quantity?>" />
                                 <button type="button" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
@@ -60,7 +60,7 @@
                             <p><b>Erişebilirlik:</b> <?php echo strtoupper($model->availability);?></p>
                             <p><b>Durum:</b> <?php echo strtoupper($model->state);?></p>
                             <p><b>Marka:</b> <?php echo strtoupper($model->brand);?></p>
-                            <a href=""><img src="<?php echo $baseUrl ?>/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+                            <a href=""><img src="<?php echo BaseUrl ?>/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
                         </div><!--/product-information-->
                     </div>
                 </div><!--/product-details-->
@@ -103,14 +103,7 @@
                             <div class="col-sm-12">
                                 
                                 <?php 
-                                      $CommentProvider = new CArrayDataProvider($model->comments,array(
-                                         'keyField'=>'user_id',
-                                          'pagination'=>array('pageSize'=>'5')
-                                      ));
-                                      
-                                      
-                                       $commentView = 'application.views.extra.commentfeed';
-                                      
+                                        $commentView = 'application.views.extra.commentfeed';
                                         $this->widget('zii.widgets.CListView', array(
                                                     'dataProvider' => $CommentProvider,
                                                     'itemsTagName' => 'ul',
@@ -150,7 +143,7 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="<?php echo $baseUrl ?>/images/home/recommend1.jpg" alt="" />
+                                                <img src="<?php echo BaseUrl ?>/images/home/recommend1.jpg" alt="" />
                                                 <h2>$56</h2>
                                                 <p>Easy Polo Black Edition</p>
                                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
@@ -162,7 +155,7 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="<?php echo $baseUrl ?>/images/home/recommend2.jpg" alt="" />
+                                                <img src="<?php echo BaseUrl ?>/images/home/recommend2.jpg" alt="" />
                                                 <h2>$56</h2>
                                                 <p>Easy Polo Black Edition</p>
                                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
@@ -174,7 +167,7 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="<?php echo $baseUrl ?>/images/home/recommend3.jpg" alt="" />
+                                                <img src="<?php echo BaseUrl ?>/images/home/recommend3.jpg" alt="" />
                                                 <h2>$56</h2>
                                                 <p>Easy Polo Black Edition</p>
                                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
@@ -188,7 +181,7 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="<?php echo $baseUrl ?>/images/home/recommend1.jpg" alt="" />
+                                                <img src="<?php echo BaseUrl ?>/images/home/recommend1.jpg" alt="" />
                                                 <h2>$56</h2>
                                                 <p>Easy Polo Black Edition</p>
                                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
@@ -200,7 +193,7 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="<?php echo $baseUrl ?>/images/home/recommend2.jpg" alt="" />
+                                                <img src="<?php echo BaseUrl ?>/images/home/recommend2.jpg" alt="" />
                                                 <h2>$56</h2>
                                                 <p>Easy Polo Black Edition</p>
                                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
@@ -212,7 +205,7 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="<?php echo $baseUrl ?>/images/home/recommend3.jpg" alt="" />
+                                                <img src="<?php echo BaseUrl ?>/images/home/recommend3.jpg" alt="" />
                                                 <h2>$56</h2>
                                                 <p>Easy Polo Black Edition</p>
                                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>

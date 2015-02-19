@@ -10,12 +10,7 @@
                         
                         <?php
                         echo CHtml::link(' <span class="badge pull-right"></span>
-                            SPOR GİYİM',array('urunler/urunler'),
-                               array(
-                                   'submit'=>array('urunler/urunler'),
-                                   'params'=>array('id'=>1),
-                                   
-                               ));
+                            SPOR GİYİM',array('urunler/categories','id'=>1));
                         ?>
                     </h4>
                 </div>
@@ -23,27 +18,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                            BAY GİYİM
-                        </a>
+                       <?php
+                        echo CHtml::link(' <span class="badge pull-right"></span>
+                            BAY GİYİM',array('urunler/categories','id'=>2));
+                        ?>
                     </h4>
-                </div>
-                <div id="mens" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <ul>
-                            <li><a href="#">Fendi</a></li>
-                            <li><a href="#">Guess</a></li>
-                            <li><a href="#">Valentino</a></li>
-                            <li><a href="#">Dior</a></li>
-                            <li><a href="#">Versace</a></li>
-                            <li><a href="#">Armani</a></li>
-                            <li><a href="#">Prada</a></li>
-                            <li><a href="#">Dolce and Gabbana</a></li>
-                            <li><a href="#">Chanel</a></li>
-                            <li><a href="#">Gucci</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
 
@@ -52,49 +31,73 @@
                     <h4 class="panel-title">
                          <?php
                         echo CHtml::link(' <span class="badge pull-right"></span>
-                            BAYAN GİYİM',array('urunler/urunler'),
-                               array(
-                                   'submit'=>array('urunler/urunler'),
-                                   'params'=>array('id'=>2),
-                                   
-                               ));
+                            BAYAN GİYİM',array('urunler/categories','id'=>3));
                         ?>
                     </h4>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title"><a href="#">Çocuk GİYİM</a></h4>
+                    <h4 class="panel-title"> 
+                        <?php
+                        echo CHtml::link(' <span class="badge pull-right"></span>
+                            ÇOCUK GİYİM',array('urunler/categories','id'=>4));
+                        ?></h4>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title"><a href="#">Moda</a></h4>
+                    <h4 class="panel-title">
+                         <?php
+                        echo CHtml::link(' <span class="badge pull-right"></span>
+                            İÇ GİYİM',array('urunler/categories','id'=>5));
+                        ?>
+                    </h4>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title"><a href="#">İÇ GİYİM</a></h4>
+                    <h4 class="panel-title">
+                         <?php
+                        echo CHtml::link(' <span class="badge pull-right"></span>
+                            ÇANTALAR',array('urunler/categories','id'=>6));
+                        ?>
+                    </h4>
                 </div>
             </div>
             
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title"><a href="#">Çantalar</a></h4>
+                    <h4 class="panel-title">
+                         <?php
+                        echo CHtml::link(' <span class="badge pull-right"></span>
+                            AYAKKABILAR',array('urunler/categories','id'=>7));
+                        ?>
+                    </h4>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title"><a href="#">Ayakkabılar</a></h4>
+                    <h4 class="panel-title">
+                         <?php
+                        echo CHtml::link(' <span class="badge pull-right"></span>
+                            AKSESUARLAR',array('urunler/categories','id'=>8));
+                        ?>
+                    </h4>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title"><a href="#">Aksesuarlar</a></h4>
+                    <h4 class="panel-title">
+                         <?php
+                        echo CHtml::link(' <span class="badge pull-right"></span>
+                            MODA',array('urunler/categories','id'=>9));
+                        ?>
+                    </h4>
                 </div>
             </div>
         </div><!--/category-products-->
-        <?php if(Yii::app()->controller->id=='urunler'): ?>
+        <?php if(Yii::app()->controller->id=='urunler' && Yii::app()->controller->action->id!='index'): ?>
         <div class="brands_products"><!--brands_products-->
             <h2>Markalar</h2>
             <div class="brands-name">

@@ -1427,8 +1427,8 @@ h2.title {
 
 #form {
   display: block;
-  margin-bottom: 185px;
-  margin-top: 185px;
+  margin-bottom: 115px;
+  margin-top: 35px;
   overflow: hidden;
 }
 
@@ -1479,7 +1479,7 @@ h2.title {
   margin-top: 23px;
 }
 
-.login-form form button, .signup-form form button {
+.login-form form button, .singup-button ,.signup-form form button {
   background: #FE980F;
   border: medium none;
   border-radius: 0;
@@ -1503,6 +1503,16 @@ h2.title {
   padding-left: 0;
 }
 
+.singup-button {
+    
+    width:200px;
+    height:112px;
+    font-size:30px;
+    margin-top:60px;
+    margin-left:50px;
+    
+}
+
 
 .or{
 	background: #FE980F;
@@ -1513,6 +1523,7 @@ h2.title {
 	height: 50px;
 	line-height: 50px;
 	margin-top: 75px;
+        margin-left:30px;
 	text-align: center;
 	width: 50px;
 }
@@ -1521,6 +1532,11 @@ h2.title {
 /*************************
 *******Cart CSS******
 **************************/
+table thead  tr {  text-align:center;}
+
+table {margin-top:-20px;}
+
+
 
 #do_action {
   margin-bottom: 50px;
@@ -1547,6 +1563,8 @@ h2.title {
   height:auto;
   width: auto;
   border-width: 8px;
+  margin-left:5px;
+  margin-right:5px;
   border-style: solid;
   border-color:transparent transparent transparent #FE980F;
   position: absolute;
@@ -1564,7 +1582,6 @@ h2.title {
   margin-bottom: 50px
 }
 
-
 #cart_items .cart_info .cart_menu {
   background: #FE980F;
   color: #fff;
@@ -1573,9 +1590,13 @@ h2.title {
   font-weight: normal;
 }
 
+
+
+
 #cart_items .cart_info .table.table-condensed thead tr {
   height: 51px;
 }
+
 
 
 #cart_items .cart_info .table.table-condensed tr {
@@ -1592,7 +1613,7 @@ h2.title {
 }
 
 
-#cart_items .cart_info .image {
+#cart_items .cart_info .image ,#cart_items .cart_info #yw0_c0 {
   padding-left: 30px;
 }
 
@@ -2519,5 +2540,4 @@ h2.title {
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
 }
-
 

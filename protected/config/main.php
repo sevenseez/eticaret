@@ -72,10 +72,24 @@ return array(
                            
                             '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                             '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-                            '<controller:\w+>/<action:\w+>/<pn:[^\/]*>/*' => '<controller>/<action>/view',
-                            
-			),
+                            '<controller:\w+>/<action:\w+>/<pn:[^\/]*>/*' => '<controller>/<action>/',
+			),  
 		),
+            
+                'widgetFactory' => array(
+                    'widgets' => array(
+                        'CLinkPager' => array(
+                            'header' => '<div class="pagination pagination-centered">',
+                            'footer' => '</div>',
+                            'maxButtonCount' => 5,
+                            'nextPageLabel' => '>',
+                            'prevPageLabel' => '<',
+                            'selectedPageCssClass' => 'active',
+                            'hiddenPageCssClass' => 'disabled',
+                            'htmlOptions' => array(
+                                'class' => '',
+                            )
+                    ))),
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),

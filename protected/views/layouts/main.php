@@ -8,15 +8,15 @@
     <title>Anasayfa | SevenShop</title>
     <?php 
     
-    $baseUrl = Yii::app()->request->baseUrl;
+
     $cs = Yii::app()->getClientScript();
-    $cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
-    $cs->registerCssFile($baseUrl.'/css/font-awesome.min.css');
-    $cs->registerCssFile($baseUrl.'/css/prettyPhoto.css');
-    $cs->registerCssFile($baseUrl.'/css/price-range.css');
-    $cs->registerCssFile($baseUrl.'/css/animate.css');
-    $cs->registerCssFile($baseUrl.'/css/main.css');
-    $cs->registerCssFile($baseUrl.'/css/responsive.css');
+    $cs->registerCssFile(BaseUrl.'/css/bootstrap.min.css');
+    $cs->registerCssFile(BaseUrl.'/css/font-awesome.min.css');
+    $cs->registerCssFile(BaseUrl.'/css/prettyPhoto.css');
+    $cs->registerCssFile(BaseUrl.'/css/price-range.css');
+    $cs->registerCssFile(BaseUrl.'/css/animate.css');
+    $cs->registerCssFile(BaseUrl.'/css/main.css');
+    $cs->registerCssFile(BaseUrl.'/css/responsive.css');
     ?>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -43,11 +43,11 @@
 
     <?php
     
-    $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
-    $cs->registerScriptFile($baseUrl.'/js/jquery.scrollUp.min.js');
-    $cs->registerScriptFile($baseUrl.'/js/price-range.js');
-    $cs->registerScriptFile($baseUrl.'/js/jquery.prettyPhoto.js');
-    $cs->registerScriptFile($baseUrl.'/js/main.js');
+    $cs->registerScriptFile(BaseUrl.'/js/bootstrap.min.js');
+    $cs->registerScriptFile(BaseUrl.'/js/jquery.scrollUp.min.js');
+    $cs->registerScriptFile(BaseUrl.'/js/price-range.js');
+    $cs->registerScriptFile(BaseUrl.'/js/jquery.prettyPhoto.js');
+    $cs->registerScriptFile(BaseUrl.'/js/main.js');
 	
     ?>
   

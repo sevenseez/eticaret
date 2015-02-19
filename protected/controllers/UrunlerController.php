@@ -22,15 +22,22 @@ class UrunlerController extends Controller
         }
       
 	public function actionIndex()
-	{
-		$this->render('index');
+	{       
+                $ProductProvider = Product::model()->ProductProvider(0);
+                
+                 if($ProductProvider->getTotalItemCount()<1){
+                 
+                    $this->redirect('system/error');
+                }
+                $itemView = 'application.views.urunler.category.itemfeed';
+		$this->render('category/genel',array('itemView'=>$itemView,'ProductProvider'=>$ProductProvider));
 	}
         
-        public function actionUrunler() {
+        public function actionCategories() {
                 
            
-            if(isset($_POST)){
-             $id=$_POST['id'];
+            if(isset($_GET) && !empty($_GET['id'])){
+             $id=$_GET['id'];
              $ProductProvider = Product::model()->ProductProvider($id);
              if($ProductProvider->getTotalItemCount()<1){
                  
@@ -39,7 +46,7 @@ class UrunlerController extends Controller
              $itemView = 'application.views.urunler.category.itemfeed';
              $this->render('category/genel',array('catID'=>$id,'ProductProvider'=>$ProductProvider,'itemView'=>$itemView));
             }
-            else $this->redirect('system/error');
+            else $this->redirect(array('system/'));
         }
        
         public function actionDetails() {
@@ -49,10 +56,16 @@ class UrunlerController extends Controller
                 if($cf->InsertComment())
                     $this->refresh ();
                 $model = ProductDetail::model()->findByAttributes(array('product_name'=>$product_name));
-                $this->render('details',array('model'=>$model,'catID'=>$model->category_id));
+                if ($model) 
+                    $array=$model->comments; 
+                else $array= array();
+                $CommentProvider = $cf->CommentProvider($array);
+                $this->render('details',array('model'=>$model,'catID'=>$model->category_id,'CommentProvider'=>$CommentProvider));
                 }
+                else $this->redirect(array('system/'));
         }
         
+   
 
 	// Uncomment the following methods and override them if needed
 	/*
