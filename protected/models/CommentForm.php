@@ -33,4 +33,16 @@ public function InsertComment() {
     }
     
 }
+
+public function CommentProvider($a) {
+    
+      return new CArrayDataProvider($a,array(
+                                         'keyField'=>'user_id',
+                                         'keys'=>array('user_id','date', 'comment'),
+                                          'pagination'=>array(
+                                              'pageSize'=>'3',
+                                              )
+                                      ));
+    
+}
 }

@@ -56,15 +56,21 @@ class Product extends EMongoDocument
             ),
             'index2_name'=>array(
                'key'=>array('marka_id'=>  EMongoCriteria::SORT_ASC)
-               )
+               ),
+            'index3_name'=>array(
+                 'key'=>array('product_name'=>  EMongoCriteria::SORT_ASC),
+                'unique'=>true,
+                )
         );
     }
         
     public function ProductProvider($category_id){ 
         $conditions = new EMongoCriteria;
-        $conditions->category_id('==',$category_id);
+        if($category_id!=0){
+        $conditions->category_id('==',$category_id);}
         $dp = new EMongoDocumentDataProvider($this, array(
                  'criteria'=>$conditions,
+                 'pagination'=>array('pageSize'=>'9'),
                  'sort'=>array(
                      'attributes'=>array(
                          // list of sortable attributes

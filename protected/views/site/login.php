@@ -43,38 +43,8 @@
                 <h2 class="or">YA DA</h2>
             </div>
             <div class="col-sm-4">
-                <div class="signup-form"><!--sign up form-->
-                    <h2>Yeni Üye Kaydı Yap!</h2>
-                       <?php 
-                      
-                       
-                       $form = $this->beginWidget('CActiveForm',array(
-                              'enableClientValidation' => true,
-                                'clientOptions'=>array(
-                                'validateOnSubmit'=>true,
-                                'validateOnChange'=>true,
-                                'validateOnType'=>true,
-                                'class'=>'form',
-                                'type' =>'horizontal',
-                                ), 
-                       ));
-                       
-                      echo $form->errorSummary($model2);  
-                      
-                       echo $form->textField($model2,'name',array('placeholder'=>'Ad Soyad'));
-                       echo $form->error($model2,'name');
-                       
-                       echo $form->textField($model2,'login',array('placeholder'=>'Kullanıcı Adı'));
-                       echo $form->error($model2,'login');
-                       
-                       echo $form->passwordField($model2,'pass',array('placeholder'=>'Şifre'));
-                       echo $form->error($model2,'pass');
-                       
-                        
-                       echo '<button type="submit" name="SignButton" class="btn btn-default">Kayıt Ol</button>';
-                       $this->endWidget();
-                       ?>
-                </div><!--/sign up form-->
+               <button type="button" onClick="js:location.href='singup'" name="SignButton" class="singup-button">Kayıt Ol</button>'
+            
             </div>
         </div>
     </div>

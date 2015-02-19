@@ -30,8 +30,8 @@
                 <div class="col-sm-4">
                     <div class="logo pull-left">
                         <?php 
-                        $baseUrl= Yii::app()->baseUrl;
-                        echo CHtml::link('<img src="'.$baseUrl.'/images/home/logo.png" />',array('/'));
+                        
+                        echo CHtml::link('<img src="'.BaseUrl.'/images/home/logo.png" />',array('/'));
                         ?>
                     </div>
                     <div class="btn-group pull-right">
@@ -72,7 +72,7 @@
                                 ?>
                             <li><a href="#"><i class="fa fa-star"></i> İstek Listesi</a></li>
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Ödeme Yap</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Sepet</a></li>
+                            <li><?php echo CHtml::link('<i class="fa fa-shopping-cart"></i> Sepet',array('cart/index'));?></li> 
                             <li><?php 
                             if (Yii::app()->user->isGuest){
                             echo CHtml::link('<i class="fa fa-sign-in"></i>Giriş Yap',array('site/login'));
@@ -108,7 +108,7 @@
                                     <li><?php echo CHtml::link('Ürünler',array('urunler/index'));?></li>
                                     <li><?php echo CHtml::link('Ürün Ayrıntıları',array('urunler/details'));?></li> 
                                     <li><a href="checkout.html">Satın Al</a></li> 
-                                    <li><a href="cart.html">Sepet</a></li> 
+                                    <li><?php echo CHtml::link('Sepet',array('cart/index'));?></li> 
                                     <li><a href="login.html">Giriş Yap</a></li> 
                                 </ul>
                             </li> 

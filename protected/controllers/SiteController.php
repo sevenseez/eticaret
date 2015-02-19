@@ -132,19 +132,8 @@ class SiteController extends Controller
                                 
                         }
 		}
-                $model2 = new User;
-                if (isset($_POST['User']))
-                {
-                    $old = $model2;
-                    $model2->attributes = $_POST['User'];
-                    $model2->insertDocument($model2, $old);
-                    $model2->unsetAttributes();
-                    $this->refresh();
-                    Yii::app()->user->setFlash('Başarılı','Kaydınız tamamlandı.Lüften giriş yapınız.');
-                 }  
-                   
 		// display the login form
-		$this->render('login',array('model'=>$model,'model2'=>$model2));
+		$this->render('login',array('model'=>$model));
 	}
 
 	/**
@@ -171,6 +160,21 @@ class SiteController extends Controller
               
             $this->render('ornek',array('model'=>$model));
             
+        }
+        
+        public function actionSingup() {
+            $model = new User;
+                if (isset($_POST['User']))
+                {
+                    $old = $model;
+                    $model->attributes = $_POST['User'];
+                    $model->insertDocument($model, $old);
+                    $model->unsetAttributes();
+                    $this->refresh();
+                    Yii::app()->user->setFlash('Başarılı','Kaydınız tamamlandı.Lüften giriş yapınız.');
+                 }  
+            
+            $this->render('signup',array('model'=>$model));
         }
        
         
