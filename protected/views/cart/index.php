@@ -17,30 +17,30 @@
                         'type'=>'raw',
                         'htmlOptions'=>array('class'=>'cart_product','style'=>'max-width:200px;'),
                         'value'=>function($data){
-                         return '<a href=""><img width="200px" height="150px" src="'.BaseUrl.'/images/shop/'.$data->images[0]['image_name'].'" alt=""></a>';
+                        return '<a href=""><img width="200px" height="150px" src="'.BaseUrl.'/images/shop/'.$data['product_image'].'" alt=""></a>';
                          
                         }),
                     array('header'=>'',
                           'htmlOptions'=>array('class'=>'cart_description','style'=>';margin-right:50px;'),
                           'type'=>'raw',
                           'value'=>function($data){
-                            return '<h4><a href="">'.$data->product_name.'</a></h4><p>Web ID:'.$data->product_id.'</p>';
+                          return '<h4><a href="">'.$data['product_name'].'</a></h4><p>Web ID:'.$data['product_id'].'</p>';
                           }
                         ),
                     array('header'=>'Fiyat',
                          'htmlOptions'=>array('class'=>'cart_price','style'=>'padding-right:50px!important;'),
                         'type'=>'raw',
-                        'value'=> function($data) {return '<p>$'.$data->price.'</p>';},
+                        'value'=> function($data) {return '<p>$'.$data['product_price'].'</p>';},
                         ),
                     array(
                         'type'=>'raw',
-                        'header'=>'Ölçü',
+                        'header'=>'     Sayı',
                         'htmlOptions'=>array('class'=>'cart_quantity'),
                         'value' => function($data) {
                            return
                            ' <div class="cart_quantity_button">
                                 <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="'.$data->quantity.'" autocomplete="off" size="2">
+                        <input class="cart_quantity_input" type="text" name="quantity" value="'.$data['quantity'].'" autocomplete="off" size="2">
                                     <a class="cart_quantity_down" href=""> - </a>
                             </div>';
                         }
@@ -49,7 +49,7 @@
                         'type'=>'raw',
                         'htmlOptions'=>array('class'=>'cart_total'),
                         'value'=>function($data) {
-                            return '<p class="cart_total_price">$'.$data->price*$data->quantity.'</p>';
+                        return '<p class="cart_total_price">$'.$data['product_price']*$data['quantity'].'</p>';
                         }),
                     array('header'=>'',
                         'type'=>'raw',
@@ -68,8 +68,8 @@
 <section id="do_action">
     <div class="container">
         <div class="heading">
-            <h3>What would you like to do next?</h3>
-            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+            <h3>Şimdi ne yapmak istersiniz?</h3>
+            <p>Kullanmak istediğiniz indirim kuponu yada alışveriş puanınız varsa lütfen burayı seçiniz.</p>
         </div>
         <div class="row">
             <div class="col-sm-6">
@@ -77,20 +77,20 @@
                     <ul class="user_option">
                         <li>
                             <input type="checkbox">
-                                <label>Use Coupon Code</label>
+                                <label>Kuponu Kullan</label>
                         </li>
                         <li>
                             <input type="checkbox">
-                                <label>Use Gift Voucher</label>
+                                <label>Hediye Puanları Kullan</label>
                         </li>
                         <li>
                             <input type="checkbox">
-                                <label>Estimate Shipping & Taxes</label>
+                                <label>Tahmini Kargo & Vergiler</label>
                         </li>
                     </ul>
                     <ul class="user_info">
                         <li class="single_field">
-                            <label>Country:</label>
+                            <label>Ülke :</label>
                             <select>
                                 <option>United States</option>
                                 <option>Bangladesh</option>
@@ -104,7 +104,7 @@
 
                         </li>
                         <li class="single_field">
-                            <label>Region / State:</label>
+                            <label>İl:</label>
                             <select>
                                 <option>Select</option>
                                 <option>Dhaka</option>
@@ -118,24 +118,24 @@
 
                         </li>
                         <li class="single_field zip-field">
-                            <label>Zip Code:</label>
+                            <label>Posta Kodu:</label>
                             <input type="text">
                         </li>
                     </ul>
                     <a class="btn btn-default update" href="">Get Quotes</a>
-                    <a class="btn btn-default check_out" href="">Continue</a>
+                    <a class="btn btn-default check_out" href="">Devam Edin</a>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Cart Sub Total <span>$59</span></li>
-                        <li>Eco Tax <span>$2</span></li>
-                        <li>Shipping Cost <span>Free</span></li>
-                        <li>Total <span>$61</span></li>
+                        <li>Sepet Tutarı <span>$59</span></li>
+                        <li>Vergi Tutarı <span>$2</span></li>
+                        <li>Kargo Tutarı <span>Ücretsiz</span></li>
+                        <li>Toplam  <span>$61</span></li>
                     </ul>
-                    <a class="btn btn-default update" href="">Update</a>
-                    <a class="btn btn-default check_out" href="">Check Out</a>
+                    <a class="btn btn-default update" href="">Güncelle</a>
+                    <a class="btn btn-default check_out" href="">Hemen Al</a>
                 </div>
             </div>
         </div>

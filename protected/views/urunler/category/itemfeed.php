@@ -13,7 +13,7 @@
                         $ajaxOptions = array(
                             'type' => 'POST',
                             'dataType'=>'JSON',
-                            'data' => array('id'=>$data->_id->{'$id'}),
+                            'data' => $data,
                         ),array('class'=>'btn btn-default add-to-cart')
                         );?>
                 

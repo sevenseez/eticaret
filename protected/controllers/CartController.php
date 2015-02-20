@@ -4,24 +4,34 @@ class CartController extends Controller
 {
 	public function actionIndex()
 	{
-		
+            if(!Yii::app()->user->isGuest){
             $cartProvider = Cart::model()->CartDataProvider();
             
             $this->render('index',array('cartProvider'=>$cartProvider));
+            
+            }
+            else $this->redirect(array('site/login'));
 	}
         
         public function actionAddToCart() {
             
             if(isset($_POST)){
-                if( !empty($_POST['id']) && $_POST['id']!=null)
-                {
-                    
-                    $product_id = $_POST['id'];
-                    Cart::model()->InsertCart($product_id);
-                    echo 'success';
-                }
+                    Cart::model()->InsertCart($_POST);
+                
             }
         }
+        
+        public function actionCheckOut() {
+            
+            if(!Yii::app()->user->isGuest){
+            $cartProvider = Cart::model()->CartDataProvider();
+            
+            $this->render('checkout',array('cartProvider'=>$cartProvider));
+            
+            }
+            else $this->redirect(array('site/login'));
+            
+        } 
 
 	// Uncomment the following methods and override them if needed
 	/*

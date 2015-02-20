@@ -71,7 +71,7 @@
                                 
                                 ?>
                             <li><a href="#"><i class="fa fa-star"></i> İstek Listesi</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Ödeme Yap</a></li>
+                            <li><?php echo CHtml::link('<i class="fa fa-crosshairs"></i> Ödeme Yap',array('cart/checkOut'));?></li>
                             <li><?php echo CHtml::link('<i class="fa fa-shopping-cart"></i> Sepet',array('cart/index'));?></li> 
                             <li><?php 
                             if (Yii::app()->user->isGuest){
