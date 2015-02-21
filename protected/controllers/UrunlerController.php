@@ -58,7 +58,8 @@ class UrunlerController extends Controller
                 $model = ProductDetail::model()->findByAttributes(array('product_name'=>$product_name));
                 if ($model) 
                     $array=$model->comments; 
-                else $array= array();
+                else $this->redirect(array('system/'));
+                
                 $CommentProvider = $cf->CommentProvider($array);
                 $this->render('details',array('model'=>$model,'catID'=>$model->category_id,'CommentProvider'=>$CommentProvider));
                 }

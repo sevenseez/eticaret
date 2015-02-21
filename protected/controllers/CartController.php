@@ -31,8 +31,44 @@ class CartController extends Controller
             }
             else $this->redirect(array('site/login'));
             
-        } 
-
+        }   
+        public function actionQuantDown() {
+            
+            if(isset($_POST))
+            {
+                $p_id = $_POST['item'];
+                Cart::model()->quant($p_id,'down');
+                echo 'success';
+            }
+            
+        }
+        
+        public function actionQuantUp() {
+            
+            if(isset($_POST))
+            {
+                $p_id = $_POST['item'];
+                Cart::model()->quant($p_id,'up');
+            }
+       
+        }
+        
+       public function actionDeleteItem() {
+           
+           if(isset($_POST))
+           {
+               $p_id = $_POST['item'];
+               Cart::model()->removeItem($p_id);
+           }
+           
+       }
+       
+       public function actionChangeDrop(){
+           if(isset($_POST['country'])){
+               Country::model()->getCities($_POST['country']);
+           }
+           
+       }
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()

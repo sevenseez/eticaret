@@ -65,89 +65,122 @@
                                 </div>
                                 <div class="form-two">
                                     <form>
-                                        <input type="text" placeholder="Zip / Postal Code *">
-                                        <select>
-                                            <option>-- Country --</option>
-                                            <option>United States</option>
-                                            <option>Bangladesh</option>
-                                            <option>UK</option>
-                                            <option>India</option>
-                                            <option>Pakistan</option>
-                                            <option>Ucrane</option>
-                                            <option>Canada</option>
-                                            <option>Dubai</option>
-                                        </select>
-                                        <select>
-                                            <option>-- State / Province / Region --</option>
-                                            <option>United States</option>
-                                            <option>Bangladesh</option>
-                                            <option>UK</option>
-                                            <option>India</option>
-                                            <option>Pakistan</option>
-                                            <option>Ucrane</option>
-                                            <option>Canada</option>
-                                            <option>Dubai</option>
-                                        </select>
-                                            <input type="password" placeholder="Confirm password">
-                                            <input type="text" placeholder="Phone *">
-                                            <input type="text" placeholder="Mobile Phone">
-                                            <input type="text" placeholder="Fax">
-                                    </form>
+                                        <?php
+                                        echo CHtml::form();
+                                        echo CHtml::textField('postal_code','',array('placeholder'=>'Zip / Posta Kodu'));
+                                        echo CHtml::dropDownList('countryDrop', '_id{$id}' , Country::model()->countries,
+                                   array('empty'=>'--- Ülkeler ---','ajax'=>array(
+                                       'type'=>'POST',
+                                       'url'=>CController::createUrl('cart/changeDrop'),
+                                       'update'=>'#cityDrop',
+                                       'data'=>"js:{country:$('#countryDrop').val()}"                                       
+                                   )));
+                                        echo CHtml::dropDownList('cityDrop', '', array(),array('empty'=>'--- Şehirler ---'));
+                                        echo CHtml::textField('password','',array('placeholder'=>'Şifre'));
+                                        echo CHtml::textField('phone','',array('placeholder'=>'Ev Telefonu'));
+                                        echo CHtml::textfield('mobile','',array('placeholder'=>'Cep Telefonu'));
+                                        echo CHtml::textField('fax','',array('placeholder'=>'Fax'));        
+                                        echo CHtml::endForm();
+                                        ?>
                                     </div>
                                 </div>
                             </div>
                                 <div class="col-sm-4">
                                     <div class="order-message">
-                                        <p>Shipping Order</p>
-                                        <textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-                                        <label><input type="checkbox"> Shipping to bill address</label>
+                                        <p>Kargo Sipariş</p>
+                                        <textarea name="message"  placeholder="Sipariş hakkında notlar, teslim konusunda özel notlar" rows="16"></textarea>
+                                        <label><input type="checkbox"> Kargo kredi adresine gelsin</label>
                                     </div>	
                                 </div>					
                                 </div>
                                 </div>
                                 <div class="review-payment">
-                                    <h2>Review & Payment</h2>
+                                    <h2>Alışveriş Özeti & Ödeme</h2>
                                 </div>
-
                                 <div class="table-responsive cart_info">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr class="cart_menu">
-                                                <td class="image">Item</td>
-                                                <td class="description"></td>
-                                                <td class="price">Price</td>
-                                                <td class="quantity">Quantity</td>
-                                                <td class="total">Total</td>
-                                                <td></td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                          
-                                        <tr>
-                                            <td colspan="4">&nbsp;</td>
-                                            <td colspan="2">
-                                                <table class="table table-condensed total-result">
-                                                    <tr>
-                                                        <td>Cart Sub Total</td>
-                                                        <td>$59</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Exo Tax</td>
-                                                        <td>$2</td>
-                                                    </tr>
-                                                    <tr class="shipping-cost">
-                                                        <td>Shipping Cost</td>
-                                                        <td>Free</td>										
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Total</td>
-                                                        <td><span>$61</span></td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                <?php
+                                   $this->widget('application.components.MyGridView',
+ ['dataProvider' => $cartProvider,
+                                         'id' => 'cartGrid',
+                                         'summaryText'=>'',
+                                         'columns'=>array(
+                                             array('name'=>'Eşya',
+                                                 'type'=>'raw',
+                                                 'htmlOptions'=>array('class'=>'cart_product','style'=>'max-width:200px;'),
+                                                 'value'=>function($data){
+                                                 return '<a href=""><img width="200px" height="150px" src="'.BaseUrl.'/images/shop/'.$data['product_image'].'" alt=""></a>';
+
+                                                 }),
+                                             array('header'=>'',
+                                                   'htmlOptions'=>array('class'=>'cart_description','style'=>';margin-right:50px;'),
+                                                   'type'=>'raw',
+                                                   'value'=>function($data){
+                                                   return '<h4><a href="">'.$data['product_name'].'</a></h4><p>Web ID:'.$data['product_id'].'</p>';
+                                                   }
+                                                 ),
+                                             array('header'=>'Fiyat',
+                                                  'htmlOptions'=>array('class'=>'cart_price','style'=>'padding-right:50px!important;'),
+                                                 'type'=>'raw',
+                                                 'value'=> function($data) {return '<p>$'.$data['product_price'].'</p>';},
+                                                 ),
+                                             array(
+                                                 'type'=>'raw',
+                                                 'header'=>'     Sayı',
+                                                 'htmlOptions'=>array('class'=>'cart_quantity'),
+                                                 'value' => function($data)
+                                                 { 
+                                                 $item= $data['product_id'];
+                                                    return
+                                                    ' <div class="cart_quantity_button"> '.
+                                                       CHtml::ajaxlink('+', Yii::app()->createUrl('cart/quantUp'),array(
+                                                        'type'=>'POST',
+                                                        'data'=> array('item'=>$item),
+                                                        'success'=>"js:function() { $.fn.yiiGridView.update('cartGrid');}"
+                                                    ),array('class'=>'cart_quantity_down')).'
+
+                                                 <input class="cart_quantity_input" type="text" id="tableQuant" name="quantity" 
+                                                 value="'.$data['quantity'].'" autocomplete="off" size="2">'.
+                                                    CHtml::ajaxlink('-', Yii::app()->createUrl('cart/quantDown'),array(
+                                                        'type'=>'POST',
+                                                        'data'=> array('item'=>$item),
+                                                        'success'=>"js:function() { $.fn.yiiGridView.update('cartGrid');}"
+                                                    ), array('class'=>'cart_quantity_down')).'
+                                                     </div>';
+                                                 }
+                                                 ),
+                                             array('name'=>'Toplam',
+                                                 'type'=>'raw',
+                                                 'htmlOptions'=>array('class'=>'cart_total'),
+                                                 'value'=>function($data) {
+                                                 return '<p class="cart_total_price">$'.$data['product_price']*$data['quantity'].'</p>';
+                                                 }),
+                                             array('header'=>'',
+                                                 'type'=>'raw',
+                                                 'htmlOptions'=>array('class'=>'cart_delete'),
+                                                 'value'=>function($data){ 
+                                                     return CHtml::ajaxLink('<i class="fa fa-times"></i>',Yii::app()->createUrl('cart/deleteItem'),
+                                                             array(
+                                                             'type'=>'POST',
+                                                             'data'=>array('item'=>$data['product_id']),
+                                                             'success'=>'js:function() {$.fn.yiiGridView.update("cartGrid");}'
+                                                             ),
+                                                             array('class'=>'cart_quantity_delete','title'=>'Listeden Kaldır')
+                                                             );
+                                                 }
+                                                 ),
+                                             )
+                                            ]);
+                                        ?>
+                                    <div colspan="4">&nbsp;</div>
+                                            <div colspan="2">
+                                                <div class="total-result">
+                                                    <?php $totalCart = Cart::model()->getTotal($cartProvider->getData()); ?>
+                                                    <div><p>Sepet Tutarı</p><span><?php echo '$'.$totalCart[0]?></span></div>
+                                                    <div><p>Vergi Tutarı</p><span><?php echo '$'.$totalCart[1]?></span></div>
+                                                    <div class="shipping-cost"><p>Kargo Tutarı</p><span>Ücretsiz</span></div>
+                                                    <div><p>Toplam</p> <span class="result"><?php echo array_sum($totalCart);?></span></div>
+                                                </div>
+                                            </div>
                                 </div>
                                 <div class="payment-options">
                                     <span>

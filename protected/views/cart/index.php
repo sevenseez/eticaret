@@ -1,4 +1,4 @@
-
+<?php Yii::app()->clientScript->registerScriptFile(BaseUrl.'/js/gridOptions.js');?> 
 <section id="cart_items">
     <div class="container">
         <div class="breadcrumbs">
@@ -11,6 +11,7 @@
             <?php 
             $this->widget('application.components.MyGridView',array(
                 'dataProvider' => $cartProvider,
+                'id' => 'cartGrid',
                 'summaryText'=>'',
                 'columns'=>array(
                     array('name'=>'Eşya',
@@ -36,12 +37,24 @@
                         'type'=>'raw',
                         'header'=>'     Sayı',
                         'htmlOptions'=>array('class'=>'cart_quantity'),
-                        'value' => function($data) {
+                        'value' => function($data)
+                        { 
+                        $item= $data['product_id'];
                            return
-                           ' <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                        <input class="cart_quantity_input" type="text" name="quantity" value="'.$data['quantity'].'" autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
+                           ' <div class="cart_quantity_button"> '.
+                              CHtml::ajaxlink('+', Yii::app()->createUrl('cart/quantUp'),array(
+                               'type'=>'POST',
+                               'data'=> array('item'=>$item),
+                               'success'=>"js:function() { $.fn.yiiGridView.update('cartGrid');}"
+                           ),array('class'=>'cart_quantity_down')).'
+                               
+                        <input class="cart_quantity_input" type="text" id="tableQuant" name="quantity" 
+                        value="'.$data['quantity'].'" autocomplete="off" size="2">'.
+                           CHtml::ajaxlink('-', Yii::app()->createUrl('cart/quantDown'),array(
+                               'type'=>'POST',
+                               'data'=> array('item'=>$item),
+                               'success'=>"js:function() { $.fn.yiiGridView.update('cartGrid');}"
+                           ), array('class'=>'cart_quantity_down')).'
                             </div>';
                         }
                         ),
@@ -54,7 +67,16 @@
                     array('header'=>'',
                         'type'=>'raw',
                         'htmlOptions'=>array('class'=>'cart_delete'),
-                        'value'=>function(){ return '<a title="Listeden Kaldır" class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>';}
+                        'value'=>function($data){ 
+                            return CHtml::ajaxLink('<i class="fa fa-times"></i>',Yii::app()->createUrl('cart/deleteItem'),
+                                    array(
+                                    'type'=>'POST',
+                                    'data'=>array('item'=>$data['product_id']),
+                                    'success'=>'js:function() {$.fn.yiiGridView.update("cartGrid");}'
+                                    ),
+                                    array('class'=>'cart_quantity_delete','title'=>'Listeden Kaldır')
+                                    );
+                        }
                         )
                     )
             ));
@@ -91,31 +113,18 @@
                     <ul class="user_info">
                         <li class="single_field">
                             <label>Ülke :</label>
-                            <select>
-                                <option>United States</option>
-                                <option>Bangladesh</option>
-                                <option>UK</option>
-                                <option>India</option>
-                                <option>Pakistan</option>
-                                <option>Ucrane</option>
-                                <option>Canada</option>
-                                <option>Dubai</option>
-                            </select>
+                           <?php echo CHtml::dropDownList('countryDrop', '_id{$id}' , Country::model()->countries,
+                                   array('empty'=>'Seçiniz','ajax'=>array(
+                                       'type'=>'POST',
+                                       'url'=>CController::createUrl('cart/changeDrop'),
+                                       'update'=>'#cityDrop',
+                                       'data'=>"js:{country:$('#countryDrop').val()}"                                       
+                                   )));?>
 
                         </li>
                         <li class="single_field">
-                            <label>İl:</label>
-                            <select>
-                                <option>Select</option>
-                                <option>Dhaka</option>
-                                <option>London</option>
-                                <option>Dillih</option>
-                                <option>Lahore</option>
-                                <option>Alaska</option>
-                                <option>Canada</option>
-                                <option>Dubai</option>
-                            </select>
-
+                            <label>Şehir:</label>
+                            <?php echo CHtml::dropDownList('cityDrop', '', array(),array('empty'=>'Seçiniz'));?>
                         </li>
                         <li class="single_field zip-field">
                             <label>Posta Kodu:</label>
@@ -129,10 +138,11 @@
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Sepet Tutarı <span>$59</span></li>
-                        <li>Vergi Tutarı <span>$2</span></li>
+                        <?php $totalCart = Cart::model()->getTotal($cartProvider->getData()); ?>
+                        <li>Sepet Tutarı <span><?php echo $totalCart[0]?></span></li>
+                        <li>Vergi Tutarı <span><?php echo $totalCart[1]?></span></li>
                         <li>Kargo Tutarı <span>Ücretsiz</span></li>
-                        <li>Toplam  <span>$61</span></li>
+                        <li>Toplam  <span><?php echo array_sum($totalCart);?></span></li>
                     </ul>
                     <a class="btn btn-default update" href="">Güncelle</a>
                     <a class="btn btn-default check_out" href="">Hemen Al</a>
