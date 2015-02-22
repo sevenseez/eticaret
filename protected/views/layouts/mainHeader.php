@@ -65,8 +65,8 @@
                                 <?php
                                 
                                 if (!Yii::app()->user->isGuest){
-                                echo '<li><a href="#"><i class="fa fa-user"></i> '.
-                                Yii::app()->user->first_Name. '</a></li>';
+                                echo '<li>'.CHtml::link('<i class="fa fa-user"></i>'.
+                                        Yii::app()->user->first_Name,array('cart/history'));
                                 }
                                 
                                 ?>

@@ -8,26 +8,26 @@
             </ol>
         </div><!--/breadcrums-->
 
-        <div class="step-one">
-            <h2 class="heading">Step1</h2>
+        <div class="step-one checkOutHide">
+            <h2 class="heading">Birinci Adım</h2>
         </div>
-        <div class="checkout-options">
-            <h3>New User</h3>
-            <p>Checkout options</p>
+        <div class="checkout-options checkOutHide">
+            <h3>Yeni Kullanıcı</h3>
+            <p>Ödeme Seçenekleri</p>
             <ul class="nav">
                 <li>
-                    <label><input type="checkbox"> Register Account</label>
+                    <label><input type="checkbox"> Kayıt Ol</label>
                 </li>
                 <li>
-                    <label><input type="checkbox"> Guest Checkout</label>
+                    <label><input type="checkbox"> Misafir Olarak Devam Et</label>
                 </li>
                 <li>
-                    <a href="" data-dismiss="checkout-options"><i class="fa fa-times"></i>Cancel</a>
+                    <a  class="closeBtn" data-hide="checkOutHide" style="cursor:pointer;"><i class="fa fa-times"></i>İptal</a>
                 </li>
             </ul>
         </div><!--/checkout-options-->
-
-        <div class="register-req">
+        
+        <div class="register-req checkOutHide">
             <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
         </div><!--/register-req-->
 
@@ -35,19 +35,19 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="shopper-info">
-                        <p>Shopper Information</p>
+                        <p>Müşteri Bilgisi</p>
                         <form>
-                            <input type="text" placeholder="Display Name">
-                            <input type="text" placeholder="User Name">
-                            <input type="password" placeholder="Password">
-                            <input type="password" placeholder="Confirm password">
+                            <input type="text" placeholder="Ad Soyad">
+                            <input type="text" placeholder="Kullanıcı Adı">
+                            <input type="password" placeholder="Şifre">
+                            <input type="password" placeholder="Şifre Tekrar">
                         </form>
                         <a class="btn btn-primary" href="">Get Quotes</a>
                         </div>
                         </div>
                         <div class="col-sm-5 clearfix">
                             <div class="bill-to">
-                                <p>Bill To</p>
+                                <p>Hesap</p>
                                 <div class="form-one">
                                         <?php 
                                         
@@ -115,6 +115,7 @@
                                    $this->widget('application.components.MyGridView',
                                    ['dataProvider' => $cartProvider,
                                          'id' => 'cartGrid',
+                                         'emptyText'=>'<p style="font-size:20px;">KAYIT BULUNAMADI</p>',
                                          'summaryText'=>'',
                                          'columns'=>array(
                                              array('name'=>'Eşya',
@@ -187,7 +188,7 @@
                                     <div colspan="4">&nbsp;</div>
                                             <div colspan="2">
                                                 <div class="total-result">
-                                                    <?php $totalCart = Cart::model()->getTotal($cartProvider->getData()); ?>
+                                                    <?php $totalCart = Cart::model()->getTotal($cartProvider->rawData); ?>
                                                     <div><p>Sepet Tutarı</p><span><?php echo '$'.$totalCart[0]?></span></div>
                                                     <div><p>Vergi Tutarı</p><span><?php echo '$'.$totalCart[1]?></span></div>
                                                     <div class="shipping-cost"><p>Kargo Tutarı</p><span>Ücretsiz</span></div>
@@ -197,14 +198,15 @@
                                 </div>
                                 <div class="payment-options">
                                     <span>
-                                        <label><input type="checkbox"> Direct Bank Transfer</label>
+                                        <label><input type="checkbox"> Banka Hesabından Öde</label>
                                     </span>
                                     <span>
-                                        <label><input type="checkbox"> Check Payment</label>
+                                        <label><input type="checkbox"> Çek ile Öde</label>
                                     </span>
                                     <span>
-                                        <label><input type="checkbox"> Paypal</label>
+                                        <label><input type="checkbox"> Paypal ile Öde</label>
                                     </span>
                                 </div>
                                 </div>
                                 </section> <!--/#cart_items-->
+                              <script src="<?php echo BaseUrl?>/js/data-hide.js"></script>

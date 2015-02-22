@@ -19,6 +19,7 @@ class Bill extends EMongoDocument
       public $fax;
       public $city;
       public $date;
+      public $description;
       /*
  */
       

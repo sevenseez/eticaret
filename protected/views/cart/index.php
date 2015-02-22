@@ -12,6 +12,7 @@
             $this->widget('application.components.MyGridView',array(
                 'dataProvider' => $cartProvider,
                 'id' => 'cartGrid',
+                'emptyText'=>'<p style="font-size:20px;">KAYIT BULUNAMADI</p>',
                 'summaryText'=>'',
                 'columns'=>array(
                     array('name'=>'Eşya',

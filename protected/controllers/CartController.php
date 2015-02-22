@@ -70,6 +70,14 @@ class CartController extends Controller
            
        }
        
+       public function actionHistory() {
+           
+           $checkoutProvider = Checkout::model()->CheckoutDataProvider();
+           $this->render('history',array('checkoutProvider'=>$checkoutProvider));
+           
+           
+       }
+       
        public function actionBuy(){
            if(isset($_POST)){
            $bill = new Bill();
