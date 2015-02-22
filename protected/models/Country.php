@@ -47,6 +47,7 @@ class Country extends EMongoDocument
         $list = CHtml::listData($this->findAll($criteria),'country_name','country_name');
         return $list;
     }
+  
     
     public function getCities($country){
         $cities = $this->findByAttributes(array('country_name'=>$country))->cities;
@@ -55,7 +56,8 @@ class Country extends EMongoDocument
          foreach($cities as $value=>$name)
             {
                 echo CHtml::tag('option',
-                           array('value'=>$value),CHtml::encode($name),true);
+                           array('value'=>$name),CHtml::encode($name),true);
+               
             }
     }
         

@@ -1921,8 +1921,8 @@ table {margin-top:-20px;}
 
 
 .shopper-info > form > input, 
-.form-two > form > select, 
-.form-two > form > input, 
+.form-two  > select, 
+.form-two  > input, 
 .form-one > form > input {
   background:#F0F0E9;
   border: 0 none;
@@ -1932,7 +1932,7 @@ table {margin-top:-20px;}
   font-weight: 300
 }
 
-.form-two > form > select {
+.form-two  > select {
   padding:10px 5px
 }
 

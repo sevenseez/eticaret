@@ -26,7 +26,7 @@ class CartController extends Controller
             if(!Yii::app()->user->isGuest){
             $cartProvider = Cart::model()->CartDataProvider();
             
-            $this->render('checkout',array('cartProvider'=>$cartProvider));
+            $this->render('checkout',array('cartProvider'=>$cartProvider,'bill'=>new Bill()));
             
             }
             else $this->redirect(array('site/login'));
@@ -64,11 +64,35 @@ class CartController extends Controller
        }
        
        public function actionChangeDrop(){
-           if(isset($_POST['country'])){
+           if(isset($_POST)){
                Country::model()->getCities($_POST['country']);
            }
            
        }
+       
+       public function actionBuy(){
+           if(isset($_POST)){
+           $bill = new Bill();
+           
+           $bill->attributes=$_POST['Bill'];
+           $bill->user_id = Yii::app()->user->id;
+           
+           if($bill->validate()){    
+           $checkout = new Checkout();
+           $cart = Cart::model()->findByAttributes(array('user_id'=>$bill->user_id));
+           
+           $checkout->attributes = $cart->attributes;
+           $checkout->date = date('d-m-Y H:i:s');
+           if($checkout->save()){
+               $bill->checkout_id=$checkout->_id->{'$id'};
+               $bill->date = $checkout->date;
+               $cart->delete();
+               $bill->save();
+           }
+        }
+       }
+       $this->redirect(array('/site/index'));
+    }
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()

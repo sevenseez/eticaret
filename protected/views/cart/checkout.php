@@ -43,7 +43,6 @@
                             <input type="password" placeholder="Confirm password">
                         </form>
                         <a class="btn btn-primary" href="">Get Quotes</a>
-                        <a class="btn btn-primary" href="">Continue</a>
                         </div>
                         </div>
                         <div class="col-sm-5 clearfix">
@@ -51,36 +50,50 @@
                                 <p>Bill To</p>
                                 <div class="form-one">
                                         <?php 
-                                        echo CHtml::beginForm();
-                                        echo CHtml::textField('cpname','',array('placeholder'=>'Şirket Adı'));
-                                        echo CHtml::textField('email','',array('placeholder'=>'E-Posta'));
-                                        echo CHtml::textField('title','',array('placeholder'=>'Başlık'));
-                                        echo CHtml::textField('name','',array('placeholder'=>'Ad'));
-                                        echo CHtml::textField('surname','',array('placeholder'=>'Soyad'));
-                                        echo CHtml::textField('address1','',array('placeholder'=>'Adres 1'));
-                                        echo CHtml::textField('address2','',array('placeholder'=>'Adres 2'));
-                                        echo CHtml::endForm();
+                                        
+                                        
+                                        $form=$this->beginWidget('CActiveForm',array(
+                                           'action'=>Yii::app()->createUrl('cart/buy'),
+                                            'method'=>'POST',
+                                           'enableClientValidation'=>true,
+                                            'clientOptions'=>array(
+                                                'validateOnSubmit'=>true,
+                                                'validateOnChange'=>true,
+                                                'validateOnType'=>true,
+                                            )
+                                            
+                                        ));
+
+                                        echo $form->errorSummary($bill);
+                                        echo $form->textField($bill,'cpname',array('placeholder'=>'Şirket Adı'));
+                                        echo $form->textField($bill,'email',array('placeholder'=>'E-Posta'));
+                                        echo $form->textField($bill,'title',array('placeholder'=>'Başlık'));
+                                        echo $form->textField($bill,'name',array('placeholder'=>'Ad'));
+                                        echo $form->textField($bill,'surname',array('placeholder'=>'Soyad'));
+                                        echo $form->textField($bill,'address1',array('placeholder'=>'Adres 1'));
+                                        echo $form->textField($bill,'address2',array('placeholder'=>'Adres 2'));
+                                        
                                         
                                         ?>
                                 </div>
                                 <div class="form-two">
-                                    <form>
                                         <?php
-                                        echo CHtml::form();
-                                        echo CHtml::textField('postal_code','',array('placeholder'=>'Zip / Posta Kodu'));
-                                        echo CHtml::dropDownList('countryDrop', '_id{$id}' , Country::model()->countries,
-                                   array('empty'=>'--- Ülkeler ---','ajax'=>array(
+                                        echo $form->textField($bill,'postal_code',array('placeholder'=>'Zip / Posta Kodu'));
+                                        echo $form->dropDownList($bill, 'country' , Country::model()->countries,
+                                   array('empty'=>'--- Ülkeler ---','id'=>'countryDrop','ajax'=>array(
                                        'type'=>'POST',
+                                       'data'=>'js:{country:$("#countryDrop").val()}',
                                        'url'=>CController::createUrl('cart/changeDrop'),
                                        'update'=>'#cityDrop',
                                        'data'=>"js:{country:$('#countryDrop').val()}"                                       
                                    )));
-                                        echo CHtml::dropDownList('cityDrop', '', array(),array('empty'=>'--- Şehirler ---'));
-                                        echo CHtml::textField('password','',array('placeholder'=>'Şifre'));
-                                        echo CHtml::textField('phone','',array('placeholder'=>'Ev Telefonu'));
-                                        echo CHtml::textfield('mobile','',array('placeholder'=>'Cep Telefonu'));
-                                        echo CHtml::textField('fax','',array('placeholder'=>'Fax'));        
-                                        echo CHtml::endForm();
+                                        echo $form->dropDownList($bill, 'city', array(),array('empty'=>'--- Şehirler ---','id'=>'cityDrop'));
+                                        echo $form->textField($bill,'password',array('placeholder'=>'Şifre'));
+                                        echo $form->textField($bill,'phone',array('placeholder'=>'Ev Telefonu'));
+                                        echo $form->textfield($bill,'mobile',array('placeholder'=>'Cep Telefonu'));
+                                        echo $form->textField($bill,'fax',array('placeholder'=>'Fax'));
+                                        echo CHtml::submitButton('Devam Et',array('class'=>'btn btn-primary'));
+                                        $this->endWidget();
                                         ?>
                                     </div>
                                 </div>
@@ -100,7 +113,7 @@
                                 <div class="table-responsive cart_info">
                                 <?php
                                    $this->widget('application.components.MyGridView',
- ['dataProvider' => $cartProvider,
+                                   ['dataProvider' => $cartProvider,
                                          'id' => 'cartGrid',
                                          'summaryText'=>'',
                                          'columns'=>array(
@@ -178,7 +191,7 @@
                                                     <div><p>Sepet Tutarı</p><span><?php echo '$'.$totalCart[0]?></span></div>
                                                     <div><p>Vergi Tutarı</p><span><?php echo '$'.$totalCart[1]?></span></div>
                                                     <div class="shipping-cost"><p>Kargo Tutarı</p><span>Ücretsiz</span></div>
-                                                    <div><p>Toplam</p> <span class="result"><?php echo array_sum($totalCart);?></span></div>
+                                                    <div><p>Toplam</p> <span class="result"><?php echo '$'.array_sum($totalCart);?></span></div>
                                                 </div>
                                             </div>
                                 </div>

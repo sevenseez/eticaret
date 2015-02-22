@@ -35,7 +35,7 @@ class ProductDetail extends EMongoDocument
         return array(
           array('product_id, category_id, brand_id, product_name','required','message'=>'Bu alan boş bırakılamaz'),
           array('description','legnth','max'=>200,'tooLong'=>'Bu alan için ayrılan karakter sınırlamasını aştınız'),
-          array('category_id, price, brand_id ,quantity','numerical','integerOnly'),
+          array('category_id, price, brand_id ,quantity','numerical','integerOnly'=>true,'message'=>'Bu alan rakamlardan oluşmalıdır'),
          
         );
       }

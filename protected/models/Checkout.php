@@ -1,9 +1,10 @@
 <?php
 
-class Cart extends EMongoDocument
+class Checkout extends EMongoDocument
     {
       public $products;
       public $user_id;
+      public $date;
       /*
       public $product_id;
       public $quantity;
@@ -22,14 +23,14 @@ class Cart extends EMongoDocument
       // This method is required!
       public function getCollectionName()
       {
-        return 'Carts';
+        return 'Checkouts';
       }
       
    
       public function rules()
       {
         return array(
-       
+       array('user_id, products, date','required')
         );
       }
       
@@ -45,8 +46,9 @@ class Cart extends EMongoDocument
       public function getAttributeLabels()
       {
         return array(
-          'product_id' => 'Product ID',
-          'user_id'=>'User ID',
+          'product_id' => 'Ürün ID',
+          'user_id'=>'Kullanıcı ID',
+          'date'=>'Tarih'
         );
       }
       
@@ -57,8 +59,7 @@ class Cart extends EMongoDocument
             'index1_name'=>array(
                 'key'=>array(
                     'user_id'=>EMongoCriteria::SORT_ASC
-                ),
-            'unique'=>true,
+                )
             ),
         );
     } 
@@ -140,60 +141,6 @@ class Cart extends EMongoDocument
        
     }
     
-    public function quant($product_id,$direction) {
-        
-        
-        $user_id = Yii::app()->user->id;
-        
-        $mongo = Yii::app()->mongodb->getConnection();
-        $db = $mongo->selectDB('eTicaretDatabase');
-        $collection = $db->selectCollection('Carts');
-        
-           $criteria = array("user_id"=>$user_id,
-               "products.product_id"=>$product_id
-               );
-           $pr = $collection->findOne($criteria)['products'];
-          
-            if (count($pr) == count($pr, COUNT_RECURSIVE)) 
-            {
-                if($direction == 'down' && $pr['quantity']>0) $quant = $pr['quantity']-1;
-                else if($direction =='up' && $pr['quantity']<10) $quant = $pr['quantity']+1;
-                else $quant=$pp['quantity'];
-            }
-            else
-            {
-               foreach($pr as $pp){
-                if($pp['product_id']==$product_id)
-                 {
-                    if($direction =='down' && $pp['quantity']>0) $quant = $pp['quantity']-1;
-                    else if($direction =='up' && $pp['quantity']<10) $quant = $pp['quantity']+1; 
-                    else $quant=$pp['quantity'];
-                    break;
-                 }
-               }
-            }
-
-            $collection->update( 
-            $criteria,
-            array('$set' => array("products.$.quantity" => $quant))
-           );
-    }
-    
-    public function removeItem($p_id) {
-        
-        $user_id = Yii::app()->user->id;
-        
-        $mongo = Yii::app()->mongodb->getConnection();
-        $db = $mongo->selectDB('eTicaretDatabase');
-        $collection = $db->selectCollection('Carts');
-        $criteria = array("user_id"=>$user_id,
-              "products.product_id"=>$p_id
-              );
-        $collection->update( 
-            $criteria,
-            array('$pull' => array("products" => array('product_id'=>$p_id)))
-        );
-    }
     
     public function getTotal($provider){
         $totalValue = 0;
@@ -207,12 +154,9 @@ class Cart extends EMongoDocument
         
         
     }
-    public function CartDataProvider() {
+    public function CheckoutDataProvider() {
        
-        $products = $this->findByAttributes(array('user_id'=>Yii::app()->user->id));
-        if($products)
-            $products=$products->products;
-        else $products=array();
+        $products = $this->findByAttributes(array('user_id'=>Yii::app()->user->id))->products;
         
        return new CArrayDataProvider($products,
                 array(

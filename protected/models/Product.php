@@ -27,7 +27,7 @@ class Product extends EMongoDocument
         return array(
           array('category_id,product_name,image','required','message'=>'Bu alan boş bırakılamaz'),
           array('description','legnth','max'=>200,'tooLong'=>'Bu alan için ayrılan karakter sınırlamasını aştınız'),
-          array('category_id, price, marka_id','numerical','integerOnly'),
+          array('category_id, price, marka_id','numerical','integerOnly'=>true,'message'=>'Bu alan rakamlardan oluşmalıdır'),
           array('image', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'maxSize'=>10*1024*1024,'tooLarge'=>'dosya boyutu sınırları aşıyor...'
                             ,'on'=>'update'),
         );
